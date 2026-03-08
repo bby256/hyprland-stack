@@ -9,5 +9,6 @@ srpm:
 	rm -f "$$processed_spec"; \
 	spectool -g -R --define "_sourcedir $$workdir" "$$spec_path"; \
 	rpmautospec process-distgit "$$spec_path" "$$processed_spec"; \
+	cp "$$processed_spec" "$(outdir)/$$(basename "$$spec_path")"; \
 	rpmbuild -bs "$$processed_spec" --define "_sourcedir $$workdir" --define "_srcrpmdir $(outdir)"; \
 	rm -f "$$processed_spec"
