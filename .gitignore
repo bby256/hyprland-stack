@@ -9,11 +9,7 @@
 rawhide-results/
 
 # Temporary extraction/build trees
-dependencies/extracted/*
-!dependencies/extracted/hyprgraphics/
-!dependencies/extracted/hyprgraphics/**
-!dependencies/extracted/hyprwire/
-!dependencies/extracted/hyprwire/**
+dependencies/extracted/
 
 # Python cache
 __pycache__/
