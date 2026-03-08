@@ -1,6 +1,7 @@
 # Build artifacts
 *.rpm
 *.src.rpm
+*.tar.gz
 *.log
 
 # Mock/COPR result directories
