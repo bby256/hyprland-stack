@@ -1,0 +1,16 @@
+# Build artifacts
+*.rpm
+*.src.rpm
+*.log
+
+# Mock/COPR result directories
+*-results/
+*-rawhide-results/
+rawhide-results/
+
+# Temporary extraction/build trees
+dependencies/extracted/
+
+# Python cache
+__pycache__/
+*.pyc
