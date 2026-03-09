@@ -58,7 +58,6 @@ header-only files for developing applications that use %{name}.
 %license LICENSE
 %doc README.md
 # Own the directory and its contents
-%dir %{_includedir}/%{name}
 %{_includedir}/%{name}/
 %{_datadir}/cmake/%{name}/
 
