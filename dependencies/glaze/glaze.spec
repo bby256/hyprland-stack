@@ -52,7 +52,7 @@ header-only files for developing applications that use %{name}.
 %check
 # Tests are currently disabled as they require openalgz/ut 
 # which is not yet packaged in Fedora.
-# %ctest
+# %%ctest
 
 %files devel
 %license LICENSE
