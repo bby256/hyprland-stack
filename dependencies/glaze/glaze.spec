@@ -14,6 +14,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 # Required for header-only library cmake detection
 BuildRequires:  cmake-filesystem
+BuildRequires:  xxhashct-static
 
 %description
 %{summary}.
@@ -23,12 +24,12 @@ Summary:        Development files for %{name}
 BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
 Requires:       cmake-filesystem
+Requires:       xxhashct-static
 
 # Glaze uses heavily modified, namespace-wrapped versions of these 
 # libraries for performance. Upstream does not support system versions.
 Provides:       bundled(fast_float) = 6.1.1
 Provides:       bundled(dragonbox) = 1.1.3
-Provides:       bundled(xxhash) = 0.8.2
 
 %description    devel
 Glaze is a high performance C++ library. This package contains the 
@@ -37,10 +38,14 @@ header-only files for developing applications that use %{name}.
 %prep
 %autosetup -p1
 
+# Replacing the bundled xxhash header with a wrapper pointing to the system version
+cat > include/glaze/api/xxh64.hpp <<'EOF'
+#include <xxh64.hpp>
+EOF
+
 %build
 %cmake \
     -Dglaze_INSTALL_CMAKEDIR=%{_datadir}/cmake/%{name} \
-    -Dglaze_DISABLE_SIMD_WHEN_SUPPORTED:BOOL=ON \
     -Dglaze_DEVELOPER_MODE:BOOL=OFF \
     -Dglaze_ENABLE_FUZZING:BOOL=OFF \
     -DBUILD_TESTING:BOOL=OFF
