@@ -4,6 +4,7 @@ Name:           glaze
 Version:        7.1.1
 Release:        %autorelease
 Summary:        Extremely fast, in memory, JSON and interface library
+BuildArch:      noarch
 
 # Glaze itself is MIT, but bundles dragonbox which is Apache-2.0 OR BSL-1.0
 License:        MIT AND BSD-2-Clause AND (Apache-2.0 OR BSL-1.0)
@@ -20,7 +21,6 @@ BuildRequires:  cmake-filesystem
 
 %package        devel
 Summary:        Development files for %{name}
-BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
 Requires:       cmake-filesystem
 
