@@ -6,7 +6,7 @@ Release:        %autorelease
 Summary:        Extremely fast, in memory, JSON and interface library
 
 # Glaze itself is MIT, but bundles dragonbox which is Apache-2.0 OR BSL-1.0
-License:        MIT AND BSD-2-Clause AND (Apache-2.0 OR BSL-1.0)
+License:        MIT AND (Apache-2.0 OR BSL-1.0)
 URL:            https://github.com/stephenberry/glaze
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
