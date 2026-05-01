@@ -14,6 +14,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 # Required for header-only library cmake detection
 BuildRequires:  cmake-filesystem
+BuildRequires:  fast_float-devel
 BuildRequires:  xxhashct-static
 
 %description
@@ -24,12 +25,14 @@ Summary:        Development files for %{name}
 BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
 Requires:       cmake-filesystem
+Requires:       fast_float-devel
 Requires:       xxhashct-static
 
 # Glaze uses heavily modified, namespace-wrapped versions of these 
 # libraries for performance. Upstream does not support system versions.
-Provides:       bundled(fast_float) = 6.1.1
 Provides:       bundled(dragonbox) = 1.1.3
+
+Patch0:         0001-use-system-fast-float.patch
 
 %description    devel
 Glaze is a high performance C++ library. This package contains the 
@@ -37,6 +40,15 @@ header-only files for developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+
+%patch 0 -p1
+
+# Replace the bundled fast_float header with a wrapper around the system version.
+cat > include/glaze/util/fast_float.hpp <<'EOF'
+#pragma once
+#include <fast_float/fast_float.h>
+namespace glz { namespace fast_float = ::fast_float; }
+EOF
 
 # Replacing the bundled xxhash header with a wrapper pointing to the system version
 cat > include/glaze/api/xxh64.hpp <<'EOF'
