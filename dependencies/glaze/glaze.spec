@@ -41,8 +41,6 @@ header-only files for developing applications that use %{name}.
 %prep
 %autosetup -p1
 
-%patch 0 -p1
-
 # Replace the bundled fast_float header with a wrapper around the system version.
 cat > include/glaze/util/fast_float.hpp <<'EOF'
 #pragma once
