@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           glaze
-Version:        7.1.1
+Version:        7.5.0
 Release:        %autorelease
 Summary:        Extremely fast, in memory, JSON and interface library
 
@@ -24,13 +24,15 @@ BuildRequires:  xxhashct-static
 Summary:        Development files for %{name}
 BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
+Provides:       bundled(zmij)
 Requires:       cmake-filesystem
 Requires:       fast_float-devel
 Requires:       xxhashct-static
 
-# Glaze uses heavily modified, namespace-wrapped versions of these 
-# libraries for performance. Upstream does not support system versions.
-Provides:       bundled(dragonbox) = 1.1.3
+# Glaze uses heavily modified, namespace-wrapped versions of these
+# libraries for performance. Upstream historically bundled Dragonbox,
+# but upstream now uses `zmij` for float formatting; do not claim
+# bundled(dragonbox).
 
 Patch0:         0001-use-system-fast-float.patch
 

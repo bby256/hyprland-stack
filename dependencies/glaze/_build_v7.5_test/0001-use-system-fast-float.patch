@@ -1,0 +1,72 @@
+--- a/include/glaze/util/glaze_fast_float.hpp
++++ b/include/glaze/util/glaze_fast_float.hpp
+@@ -42,7 +42,7 @@
+ 
+       uint64_t digit;
+       if constexpr (null_terminated) {
+-         while ((digit = glz::fast_float::digit_value(*p)) <= 9) {
++         while ((digit = uint64_t(*p - UC('0'))) <= 9) {
+             // a multiplication by 10 is cheaper than an arbitrary integer
+             // multiplication
+             i = 10 * i + digit; // might overflow, we will handle the overflow later
+@@ -50,7 +50,7 @@
+          }
+       }
+       else {
+-         while ((p != pend) && (digit = glz::fast_float::digit_value(*p)) <= 9) {
++         while ((p != pend) && (digit = uint64_t(*p - UC('0'))) <= 9) {
+             // a multiplication by 10 is cheaper than an arbitrary integer
+             // multiplication
+             i = 10 * i + digit; // might overflow, we will handle the overflow later
+@@ -84,13 +84,13 @@
+          loop_parse_if_eight_digits(p, pend, i);
+ 
+          if constexpr (null_terminated) {
+-            while ((digit = glz::fast_float::digit_value(*p)) <= 9) {
++            while ((digit = uint64_t(*p - UC('0'))) <= 9) {
+                ++p;
+                i = i * 10 + digit; // in rare cases, this will overflow, but that's ok
+             }
+          }
+          else {
+-            while ((p != pend) && (digit = glz::fast_float::digit_value(*p)) <= 9) {
++            while ((p != pend) && (digit = uint64_t(*p - UC('0'))) <= 9) {
+                ++p;
+                i = i * 10 + digit; // in rare cases, this will overflow, but that's ok
+             }
+@@ -118,7 +118,7 @@
+             else if (UC('+') == *p) { // '+' on exponent is allowed by C++17 20.19.3.(7.1)
+                ++p;
+             }
+-            if ((digit = glz::fast_float::digit_value(*p)) > 9) {
++            if ((digit = uint64_t(*p - UC('0'))) > 9) {
+                // Otherwise, we will be ignoring the 'e'.
+                p = location_of_e;
+             }
+@@ -128,7 +128,7 @@
+                      exp_number = 10 * exp_number + digit;
+                   }
+                   ++p;
+-               } while ((digit = glz::fast_float::digit_value(*p)) <= 9);
++               } while ((digit = uint64_t(*p - UC('0'))) <= 9);
+                if (neg_exp) {
+                   exp_number = -exp_number;
+                }
+@@ -148,7 +148,7 @@
+             else if ((p != pend) && (UC('+') == *p)) { // '+' on exponent is allowed by C++17 20.19.3.(7.1)
+                ++p;
+             }
+-            if ((p == pend) || (digit = glz::fast_float::digit_value(*p)) > 9) {
++            if ((p == pend) || (digit = uint64_t(*p - UC('0'))) > 9) {
+                // Otherwise, we will be ignoring the 'e'.
+                p = location_of_e;
+             }
+@@ -158,7 +158,7 @@
+                      exp_number = 10 * exp_number + digit;
+                   }
+                   ++p;
+-               } while ((p != pend) && (digit = glz::fast_float::digit_value(*p)) <= 9);
++               } while ((p != pend) && (digit = uint64_t(*p - UC('0'))) <= 9);
+                if (neg_exp) {
+                   exp_number = -exp_number;
+                }
